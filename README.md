@@ -12,12 +12,14 @@ This project demonstrates how to integrate a SvelteKit frontend with a Node.js b
     *   The main page (`src/routes/+page.svelte`) connects to the WebSocket server running on `http://localhost:3000`.
     *   It listens for the `eventFromServer` message from the server.
     *   When a message is received, it displays a temporary notification ("Data has been updated! Page refreshed.") and calls `invalidate('app:page')` which can be used to trigger data reloading if `load` functions depend on it.
+    *   Includes logic to authenticate the WebSocket connection using a token.
 
 2.  **Node.js Backend (`server/index.js`)**:
     *   Uses Express to create an HTTP server.
     *   Integrates Socket.IO for WebSocket communication.
     *   Serves the built SvelteKit application using `handler` from `../build/handler.js`.
-    *   Provides an HTTP POST endpoint `/api/trigger-ws`.
+    *   Provides an HTTP POST endpoint `/api/trigger-ws` with enhanced logging and validation.
+    *   Includes WebSocket authentication middleware to validate tokens and only allow authenticated connections.
 
 ## How it Works
 
@@ -47,7 +49,7 @@ This basic setup can be extended for various real-time features, such as:
     ```
 3.  **Start the Node.js server:**
     ```bash
-    node server/index.js
+    node ./server
     ```
     Alternatively, you can use the npm script:
     ```bash
@@ -65,3 +67,5 @@ This basic setup can be extended for various real-time features, such as:
     curl -X POST -H "Content-Type: application/json" -d '{"message": "Hello from server!"}' http://localhost:3000/api/trigger-ws
     ```
     You should see the notification appear on the webpage opened at `http://localhost:3000`.
+
+    **Note:** Ensure that the WebSocket connection is authenticated by including a valid token in the connection logic.

@@ -6,7 +6,13 @@
 	let { data }: { data: PageData } = $props();
 	import { io } from 'socket.io-client';
 	onMount(() => {
-		const socket = io('http://localhost:3000');
+		const authToken = 'your_jwt_token_here'; // Replace with actual token retrieval logic
+
+		const socket = io('http://localhost:3000', {
+			auth: {
+				token: authToken
+			}
+		});
 
 		socket.on('eventFromServer', (message) => {
 			showMsg = true;
@@ -28,8 +34,8 @@
 		$effect(() => {
 			// create timeout then hide the node
 			const timeout = setTimeout(() => {
-                showMsg = false;
-                // or you can use
+				showMsg = false;
+				// or you can use
 				// node.style.display = 'none';
 			}, 5000);
 
@@ -45,3 +51,5 @@
 		Data has been updated! Page refreshed.
 	</p>
 {/if}
+
+<h1>Welcome to SvelteKit with Socket.IO!</h1>
