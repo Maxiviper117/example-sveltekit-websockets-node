@@ -2,6 +2,10 @@
 
 This project demonstrates how to integrate a SvelteKit frontend with a Node.js backend using Socket.IO for real-time communication.
 
+## References
+
+- [Using WebSockets With SvelteKit - Joy of Code](https://joyofcode.xyz/using-websockets-with-sveltekit)
+
 ## Setup Overview
 
 1.  **SvelteKit Frontend (`src/`)**:
